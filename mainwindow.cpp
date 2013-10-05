@@ -46,16 +46,8 @@ void MainWindow::generateXML()
 
     for (int i = 0; i < nodes.size(); i++) {
         Node n = nodes[i];
-        int dif1 = 0, dif2 = 0;
 
-        if (i > 1 && i < nodes.size()-1) {
-            dif1 = n.getLevel() - nodes[i-1].getLevel();
-            dif2 = n.getLevel() - nodes[i+1].getLevel();
-            if (dif1 < 0) dif1 *= -1;
-            if (dif2 < 0) dif2 *= -1;
-        }
-
-        if (n.getValue() == NULL && (dif1 > 1 || dif2 > 1)) {
+        if (n.getValue() == NULL) {
             if (i > 1) {
                 int j = i;
                 while (j > 0) {

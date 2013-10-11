@@ -42,10 +42,16 @@ void MainWindow::openFile()
 void MainWindow::generateXML()
 {
     QVector<Node> nodes;
+    QString salida = "";
     tokenizer(nodes);
-
     for (int i = 0; i < nodes.size(); i++) {
         Node n = nodes[i];
+<<<<<<< HEAD
+        for (int tabs = 0; tabs < n.getLevel(); tabs++)
+            salida += "\t";
+        if (n.getValue() == NULL) {
+            salida += ("<"+n.getName()+">");
+=======
 
         if (n.getValue() == NULL) {
             if (i > 1) {
@@ -70,13 +76,14 @@ void MainWindow::generateXML()
                 }*/
             }
             cout << "<" << n.getName().toStdString() << ">" << endl;
+>>>>>>> 1e385d63fc1ee4373f65d75c449ae394e5c1d07c
         }
         else {
-            cout << "<" << n.getName().toStdString() << ">"
-                 << n.getValue().toStdString() << "</"
-                 << n.getName().toStdString() << ">" << endl;
+            salida += "<"+n.getName()+">"+n.getValue()+"</"+n.getName()+">";
         }
+        salida += "\n";
     }
+    ui->textXML->setPlainText(salida);
 }
 
 int MainWindow::levelNode (QString line) {
@@ -101,6 +108,8 @@ void MainWindow::tokenizer (QVector<Node> &nodes) {
         QStringList segmentedLine;
         bool hasValue = line.contains(':', Qt::CaseInsensitive);
 
+        n.setLevel(levelNode(line));
+
         if (hasValue) {
             segmentedLine = line.split(':');
             segmentedLine[0].replace("\t", "");
@@ -114,7 +123,6 @@ void MainWindow::tokenizer (QVector<Node> &nodes) {
             n.setUsed(false);
         }
 
-        n.setLevel(levelNode(line));
         nodes.push_back(n);
     }
 }

@@ -131,7 +131,7 @@
         </font>
        </property>
        <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAsNeeded</enum>
+        <enum>Qt::ScrollBarAlwaysOn</enum>
        </property>
        <property name="lineWrapMode">
         <enum>QPlainTextEdit::NoWrap</enum>

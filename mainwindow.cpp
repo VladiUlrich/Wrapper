@@ -41,22 +41,46 @@ void MainWindow::openFile()
 //Generar xml
 void MainWindow::generateXML()
 {
-    QVector<Node> nodes;
+    QVector<Node> nodes, nodesParents;
     QString salida = "";
     tokenizer(nodes);
     for (int i = 0; i < nodes.size(); i++) {
         Node n = nodes[i];
 
+        if (i > 0) {
+            int difference = n.getLevel() - nodes[i-1].getLevel();
+            cout << difference << endl;
+            if (difference < 0) {
+                while (difference < 0) {
+                    difference++;
+                    for (int tabs = 0; tabs < nodesParents.last().getLevel(); tabs++)
+                        salida += "\t";
+                    salida += "</"+nodesParents.last().getName()+">\n";
+                    nodesParents.pop_back();
+                }
+            }
+        }
+
         for (int tabs = 0; tabs < n.getLevel(); tabs++)
             salida += "\t";
+
         if (n.getValue() == NULL) {
             salida += ("<"+n.getName()+">");
+            nodesParents.push_back(n);
         }
         else {
             salida += "<"+n.getName()+">"+n.getValue()+"</"+n.getName()+">";
         }
         salida += "\n";
     }
+
+    while (nodesParents.size() > 0) {
+        for (int tabs = 0; tabs < nodesParents.last().getLevel(); tabs++)
+            salida += "\t";
+        salida += "</"+nodesParents.last().getName()+">\n";
+        nodesParents.pop_back();
+    }
+
     ui->textXML->setPlainText(salida);
 }
 

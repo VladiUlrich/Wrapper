@@ -46,37 +46,11 @@ void MainWindow::generateXML()
     tokenizer(nodes);
     for (int i = 0; i < nodes.size(); i++) {
         Node n = nodes[i];
-<<<<<<< HEAD
+
         for (int tabs = 0; tabs < n.getLevel(); tabs++)
             salida += "\t";
         if (n.getValue() == NULL) {
             salida += ("<"+n.getName()+">");
-=======
-
-        if (n.getValue() == NULL) {
-            if (i > 1) {
-                int j = i;
-                while (j > 0) {
-                    j--;
-                    if (!nodes[j].isUsed()) {
-                        nodes[j].setUsed(true);
-                        cout << "</" << nodes[j].getName().toStdString() << ">" << endl;
-                        break;
-                    }
-                }
-                /*if (n.getLevel() != nodes[i].getLevel()-1 || n.getLevel() != nodes[i].getLevel()+1) {
-                    Node last;
-                    for (int j = i-1; j >= 0; j--) {
-                        if (nodes[j].getValue() == NULL) {
-                            last = nodes[j];
-                            break;
-                        }
-                    }
-                    cout << "</" << last.getName().toStdString() << ">" << endl;
-                }*/
-            }
-            cout << "<" << n.getName().toStdString() << ">" << endl;
->>>>>>> 1e385d63fc1ee4373f65d75c449ae394e5c1d07c
         }
         else {
             salida += "<"+n.getName()+">"+n.getValue()+"</"+n.getName()+">";
